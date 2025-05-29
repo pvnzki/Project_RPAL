@@ -1,9 +1,9 @@
 import argparse
 from Parser.parser_1 import Parser
-from Lexer.lexical_analyzer import tokenize
-from Standerizer.ast_factory import ASTFactory
-from CSEM.csemachine import CSEMachine
-from CSEM.cse_factory import CSEMachineFactory
+from Lexical_Analyzer.lexical_analyzer import tokenize
+from Standardizer.ast_factory import ASTFactory
+from CSE_Machine.csemachine import CSEMachine
+from CSE_Machine.cse_factory import CSEMachineFactory
 
 def main():
     parser = argparse.ArgumentParser(description='Process some RPAL files.')

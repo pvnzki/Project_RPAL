@@ -1,5 +1,5 @@
 from enum import Enum
-from Lexer.lexical_analyzer import TokenType, MyToken
+from Lexical_Analyzer.lexical_analyzer import TokenType, MyToken
 
 class NodeType(Enum):
     let = 1
