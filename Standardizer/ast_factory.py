@@ -1,36 +1,43 @@
 from Standardizer.node import NodeFactory
 from .ast import AST
 
-#converting nodes from parser
-
+# Factory for creating Abstract Syntax Trees from parser output
 class ASTFactory:
     def __init__(self):
         pass
 
     def get_abstract_syntax_tree(self, data):
-        root = NodeFactory.get_node(data[0], 0)  # Create the root node
-        previous_node = root  # Initialize the previous node as the root
-        current_depth = 0  # Initialize the current depth as 0
+        root = NodeFactory.get_node(data[0], 0)
+        previous = root
+        depth = 0
 
-        for s in data[1:]:
-            i = 0  # index of word
-            d = 0  # depth of node
+        # Process each string representation after root
+        for node_str in data[1:]:
+            dot_count = 0
+            for char in node_str:
+                if char != '.':
+                    break
+                dot_count += 1
 
-            while s[i] == '.':
-                d += 1
-                i += 1
+            # Extract the actual node data (after dots)
+            node_data = node_str[dot_count:]
+            current = NodeFactory.get_node(node_data, dot_count)
 
-            current_node = NodeFactory.get_node(s[i:], d)  # Create the current node
-
-            if current_depth < d:
-                previous_node.children.append(current_node)  # Add current node as a child of previous node
-                current_node.set_parent(previous_node)  
+            # Determine where to attach the new node
+            if depth < dot_count:
+                previous.children.append(current)
+                current.set_parent(previous)
             else:
-                while previous_node.get_depth() != d:
-                    previous_node = previous_node.get_parent()  # Traverse up the tree until reaching the node at depth d
-                previous_node.get_parent().children.append(current_node)  
-                current_node.set_parent(previous_node.get_parent())  
+                temp = previous
+                while temp.get_depth() != dot_count:
+                    temp = temp.get_parent()
+                
+                parent = temp.get_parent()
+                parent.children.append(current)
+                current.set_parent(parent)
 
-            previous_node = current_node  
-            current_depth = d  
-        return AST(root)  
+            # Update for next iteration
+            previous = current
+            depth = dot_count
+            
+        return AST(root)
