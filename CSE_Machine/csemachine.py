@@ -15,8 +15,8 @@ class CSEMachine:
         while self.control:
             
             # change below paths to your own paths to see how the control and stack are changing
-            # self.write_control_to_file("C:\\Users\\samar\\Desktop\\PL_Project\\CSE Evaluation\\Control.txt")
-            # self.write_stack_to_file("C:\\Users\\samar\\Desktop\\PL_Project\\CSE Evaluation\\Stack.txt")
+            # self.write_control_to_file("path to Control.txt")
+            # self.write_stack_to_file("path to Stack.txt")
             
             current_symbol = self.control.pop()
             if isinstance(current_symbol, Id):
@@ -241,8 +241,6 @@ class CSEMachine:
         open(file_path, 'w').close()
     
 
-
-
     def print_environment(self):
         # Print the environment symbols
         for symbol in self.environment:
@@ -270,78 +268,74 @@ class CSEMachine:
             return Err()
 
     def apply_binary_operation(self, rator, rand1, rand2):
-        # Apply binary operation
-        if rator.get_data() == "+":
+        op = rator.get_data()
+        
+        # Arithmetic operations
+        if op in ["+", "-", "*", "/", "**"]:
             val1 = int(rand1.get_data())
             val2 = int(rand2.get_data())
-            return Int(str(val1 + val2))
-        elif rator.data == "-":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Int(str(val1 - val2))
-        elif rator.data == "*":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Int(str(val1 * val2))
-        elif rator.data == "/":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Int(str(int(val1 / val2)))
-        elif rator.data == "**":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Int(str(val1 ** val2))
-        elif rator.data == "&":
-            val1 = self.covert_string_to_bool(rand1.data)
-            val2 = self.covert_string_to_bool(rand2.data)
-            return Bool(str(val1 and val2).lower())
-        elif rator.data == "or":
-            val1 = self.covert_string_to_bool(rand1.data)
-            val2 = self.covert_string_to_bool(rand2.data)
-            return Bool(str(val1 or val2).lower())
-        elif rator.data == "eq":
-            val1 = rand1.data
-            val2 = rand2.data
-            return Bool(str(val1 == val2).lower())
-        elif rator.data == "ne":
-            val1 = rand1.data
-            val2 = rand2.data
-            return Bool(str(val1 != val2).lower())
-        elif rator.data == "ls":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Bool(str(val1 < val2).lower())
-        elif rator.data == "le":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Bool((val1 <= val2))
-        elif rator.data == "gr":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Bool(str(val1 > val2).lower())
-        elif rator.data == "ge":
-            val1 = int(rand1.data)
-            val2 = int(rand2.data)
-            return Bool(str(val1 >= val2).lower())
-        elif rator.data == "aug":
+            
+            result = {
+                "+": val1 + val2,
+                "-": val1 - val2,
+                "*": val1 * val2,
+                "/": int(val1 / val2),
+                "**": val1 ** val2
+            }[op]
+            
+            return Int(str(result))
+            
+        # Logical operations
+        elif op in ["&", "or"]:
+            val1 = self.covert_string_to_bool(rand1.get_data())
+            val2 = self.covert_string_to_bool(rand2.get_data())
+            
+            result = val1 and val2 if op == "&" else val1 or val2
+            return Bool(str(result).lower())
+            
+        # Comparison operations
+        elif op in ["eq", "ne", "ls", "le", "gr", "ge"]:
+            if op in ["ls", "le", "gr", "ge"]:
+                val1 = int(rand1.get_data())
+                val2 = int(rand2.get_data())
+            else:
+                val1 = rand1.get_data()
+                val2 = rand2.get_data()
+                
+            result = {
+                "eq": val1 == val2,
+                "ne": val1 != val2,
+                "ls": val1 < val2,
+                "le": val1 <= val2,
+                "gr": val1 > val2,
+                "ge": val1 >= val2
+            }[op]
+            
+            return Bool(str(result).lower())
+            
+        # Tuple augmentation
+        elif op == "aug":
             if isinstance(rand2, Tup):
                 rand1.symbols.extend(rand2.symbols)
             else:
                 rand1.symbols.append(rand2)
             return rand1
-        else:
-            return Err()
+            
+        return Err()
 
     def get_tuple_value(self, tup):
-        # Get the value of a tuple
-        temp = "("
+        result = "("
         for symbol in tup.symbols:
             if isinstance(symbol, Tup):
-                temp += self.get_tuple_value(symbol) + ", "
+                result += self.get_tuple_value(symbol) + ", "
             else:
-                temp += symbol.get_data() + ", "
-        temp = temp[:-2] + ")"
-        return temp
+                result += symbol.get_data() + ", "
+                
+        # Remove trailing comma and space
+        if len(tup.symbols) > 0:
+            result = result[:-2]
+            
+        return result + ")"
 
     def get_answer(self):
         # Get the answer from the CSEMachine
