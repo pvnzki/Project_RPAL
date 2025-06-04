@@ -2,6 +2,7 @@ import re
 from enum import Enum
 
 class TokenType(Enum):
+    # Basic token types for our language
     KEYWORD = 1
     IDENTIFIER = 2
     INTEGER = 3
@@ -12,68 +13,77 @@ class TokenType(Enum):
 
 class MyToken:
     def __init__(self, token_type, value):
+        # Make sure we get a valid token type
         if not isinstance(token_type, TokenType):
             raise ValueError("token_type must be an instance of TokenType enum")
         self.type = token_type
         self.value = value
 
-    # Getters for type and value
+    # Simple getters
     def get_type(self):
         return self.type
 
     def get_value(self):
         return self.value
-
-
+    
+    def __repr__(self):
+        # Helpful for debugging
+        return f"{self.type.name}:'{self.value}'"
 
 def tokenize(input_str):
     tokens = []
-    keywords = {
-        'COMMENT': r'//.*',
+    # All the patterns we'll look for
+    patterns = {
+        'COMMENT': r'//.*',  # Comments start with // and go to end of line
         'KEYWORD': r'(let|in|fn|where|aug|or|not|gr|ge|ls|le|eq|ne|true|false|nil|dummy|within|and|rec)\b',
-        'STRING': r'\'(?:\\\'|[^\'])*\'',
-        'IDENTIFIER': r'[a-zA-Z][a-zA-Z0-9_]*',
-        'INTEGER': r'\d+',
-        'OPERATOR': r'[+\-*<>&.@/:=~|$\#!%^_\[\]{}"\'?]+',
-        'SPACES': r'[ \t\n]+',
-        'PUNCTUATION': r'[();,]'
+        'STRING': r'\'(?:\\\'|[^\'])*\'',  # Strings with quotes
+        'IDENTIFIER': r'[a-zA-Z][a-zA-Z0-9_]*',  # Variable names
+        'INTEGER': r'\d+',  # Numbers
+        'OPERATOR': r'[+\-*<>&.@/:=~|$\#!%^_\[\]{}"\'?]+',  # Math and other operators
+        'SPACES': r'[ \t\n]+',  # Whitespace to skip
+        'PUNCTUATION': r'[();,]'  # Special characters
     }
     
+    # Keep going until we've processed everything
     while input_str:
         matched = False
-        for key, pattern in keywords.items():
+        # Try each pattern to see what matches next
+        for key, pattern in patterns.items():
             match = re.match(pattern, input_str)
             if match:
-                # print(key, match.group(0))
-                if key != 'SPACES':
-                    if key == 'COMMENT':
-                        comment = match.group(0)
-                        input_str = input_str[match.end():]
-                        matched = True
-                        break
-                    else:
-                        token_type = getattr(TokenType, key)  # Get TokenType enum value
-                        if not isinstance(token_type, TokenType):
-                            raise ValueError(f"Token type '{key}' is not a valid TokenType")
-                        tokens.append(MyToken(token_type, match.group(0)))
-                        input_str = input_str[match.end():]
-                        matched = True
-                        break
-                input_str = input_str[match.end():]
-                matched = True
-                break
+                # Found a match!
+                if key == 'SPACES':
+                    # Just skip spaces
+                    input_str = input_str[match.end():]
+                    matched = True
+                    break
+                elif key == 'COMMENT':
+                    # Skip comments too
+                    input_str = input_str[match.end():]
+                    matched = True
+                    break
+                else:
+                    # Real token - add it to our list
+                    token_type = getattr(TokenType, key)
+                    tokens.append(MyToken(token_type, match.group(0)))
+                    # Move past what we just processed
+                    input_str = input_str[match.end():]
+                    matched = True
+                    break
+        
+        # If nothing matched, we have a problem
         if not matched:
-            print("Error: Unable to tokenize input")
+            print(f"Error: Couldn't understand '{input_str[:20]}...'")
+            break
+            
     return tokens
 
-# #Example usage
-
-# #read input from input.txt
-# input_file = open("input.txt", "r")
-# input_str = input_file.read()
-# input_file.close()
-
-# tokens = tokenize(input_str)
-
+# How to use this code:
+# 
+# with open("your_program.rpal", "r") as file:
+#     code = file.read()
+# 
+# tokens = tokenize(code)
+# 
 # for token in tokens:
-#     print(token.type, token.value)  # Print each token
+#     print(f"{token.type}: {token.value}")
