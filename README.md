@@ -48,25 +48,35 @@ The provided `Makefile` allows you to run the interpreter easily.
 
 ### ▶️ Run and Print Final Output
 
+```bash
 make run file=path/to/your/input.txt
+```
 
 **Example:**
 
+```bash
 make run file=inputs/t1.txt
+```
 
 ### 🌲 Print Abstract Syntax Tree (AST)
 
+```bash
 make ast file=path/to/your/input.txt
+```
 
 ### 🌳 Print Standardized Abstract Syntax Tree (SAST)
 
+```bash
 make sast file=path/to/your/input.txt
+```
 
 ### 🧹 Clean Cached Files
 
 Remove all `__pycache__` directories and Python cache files:
 
+```bash
 make clean
+```
 
 ---
 
@@ -76,16 +86,21 @@ Alternatively, you can run the interpreter directly with Python:
 
 ### ▶️ Run and Print Final Output
 
+```bash
 python myrpal.py path/to/your/input.txt
+```
 
 ### 🌲 Print Abstract Syntax Tree (AST)
 
+```bash
 python myrpal.py path/to/your/input.txt -ast
+```
 
 ### 🌳 Print Standardized AST (SAST)
 
+```bash
 python myrpal.py path/to/your/input.txt -sast
-
+```
 
 > **Note:** On some systems, you may need to use `python3` instead of `python`.
 
