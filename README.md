@@ -34,10 +34,7 @@ project_rpal/
 ├── myrpal.py            # Main interpreter script
 ├── Makefile             # Makefile for simplified execution
 ├── sample_test.txt      # Example input file
-└── inputs/              # Directory containing sample test files
-    ├── t1.txt
-    ├── t2.txt
-    └── ...
+
 ```
 
 ---
@@ -50,12 +47,6 @@ The provided `Makefile` allows you to run the interpreter easily.
 
 ```bash
 make run file=path/to/your/sample_test.txt
-```
-
-**Example:**
-
-```bash
-make run file=inputs/t1.txt
 ```
 
 ### 🌲 Print Abstract Syntax Tree (AST)

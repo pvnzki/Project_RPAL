@@ -11,12 +11,13 @@ This interpreter supports two methods for execution:
 
 3. Run the interpreter using:
 
-   python3 main.py <input_file>
+   python3 myrpal.py <input_file>
 
    * Replace `<input_file>` with the path to your `.rpal` input file.
    * Example:
 
-     python3 main.py inputs/sample_program.rpal
+     python3 myrpal.py sample_test.txt
+       * This will execute the RPAL code in `sample_test.txt` and print the final output.
 
 📁 You can find more example programs in the `inputs/` directory.
 
@@ -31,7 +32,8 @@ This interpreter supports two methods for execution:
 
 3. Run the following command:
 
-   make run INPUT=inputs/sample_program.rpal
+   make run INPUT=sample_test.rpal
+   * Replace `sample_test.txt` with your desired input file.
 
 ---------------------------------------------------------------------
 
