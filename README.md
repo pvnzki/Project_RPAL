@@ -18,8 +18,7 @@ The interpreter is modular, with the following key components:
 
 1. Clone this repository:
 
-   git clone https://github.com/your-repo/project_rpal.git
-   cd project_rpal
+   git clone https://github.com/pvnzki/project_rpal.git
 
 2. Ensure Python is installed.
    You can download it from [python.org](https://www.python.org/downloads/).
