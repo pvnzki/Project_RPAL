@@ -1,6 +1,3 @@
-Here’s the full `README.md` content properly formatted for GitHub rendering:
-
-````markdown
 # 📘 Project_RPAL
 
 ## 🧠 Introduction
@@ -20,10 +17,9 @@ The interpreter is modular, with the following key components:
 ## ⚙️ Setup Instructions
 
 1. Clone this repository:
-   ```bash
+
    git clone https://github.com/your-repo/project_rpal.git
    cd project_rpal
-````
 
 2. Ensure Python is installed.
    You can download it from [python.org](https://www.python.org/downloads/).
@@ -53,7 +49,6 @@ The provided `Makefile` allows you to run the interpreter easily.
 
 ### ▶️ Run and Print Final Output
 
-```bash
 make run file=path/to/your/input.txt
 
 **Example:**
