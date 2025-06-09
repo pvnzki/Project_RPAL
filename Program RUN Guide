@@ -1,0 +1,47 @@
+# 🛠️ RPAL Interpreter – Instructions to Run
+
+This interpreter supports two methods for execution:
+
+## ✅ Method 1: Using Python Directly
+
+1. Open your terminal.
+2. Navigate to the interpreter directory:
+
+   cd path/to/interpreter
+
+3. Run the interpreter using:
+
+   python3 main.py <input_file>
+
+   * Replace `<input_file>` with the path to your `.rpal` input file.
+   * Example:
+
+     python3 main.py inputs/sample_program.rpal
+
+📁 You can find more example programs in the `inputs/` directory.
+
+--------------------------------------------------------------------
+
+## ✅ Method 2: Using Makefile
+
+1. Open your terminal.
+2. Navigate to the interpreter directory:
+
+   cd path/to/interpreter
+
+3. Run the following command:
+
+   make run INPUT=inputs/sample_program.rpal
+
+---------------------------------------------------------------------
+
+## ❓ Need Help?
+
+If you run into any issues or have questions, feel free to contact us:
+
+* 📧 Pavan — [pavan.22@cse.mrt.ac.lk]
+* 📧 Janidu — [janidu.22@cse.mrt.ac.lk]
+
+🔍 For further details, please refer to the `README.md` file.
+
+------------------------------------------------------------------------
