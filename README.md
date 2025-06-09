@@ -33,7 +33,7 @@ The interpreter is modular, with the following key components:
 project_rpal/
 ├── myrpal.py            # Main interpreter script
 ├── Makefile             # Makefile for simplified execution
-├── input.txt            # Example input file
+├── sample_test.txt      # Example input file
 └── inputs/              # Directory containing sample test files
     ├── t1.txt
     ├── t2.txt
@@ -49,7 +49,7 @@ The provided `Makefile` allows you to run the interpreter easily.
 ### ▶️ Run and Print Final Output
 
 ```bash
-make run file=path/to/your/input.txt
+make run file=path/to/your/sample_test.txt
 ```
 
 **Example:**
@@ -61,13 +61,13 @@ make run file=inputs/t1.txt
 ### 🌲 Print Abstract Syntax Tree (AST)
 
 ```bash
-make ast file=path/to/your/input.txt
+make ast file=path/to/your/sample_test.txt
 ```
 
 ### 🌳 Print Standardized Abstract Syntax Tree (SAST)
 
 ```bash
-make sast file=path/to/your/input.txt
+make sast file=path/to/your/sample_test.txt
 ```
 
 ### 🧹 Clean Cached Files
@@ -87,19 +87,19 @@ Alternatively, you can run the interpreter directly with Python:
 ### ▶️ Run and Print Final Output
 
 ```bash
-python myrpal.py path/to/your/input.txt
+python myrpal.py path/to/your/sample_test.txt
 ```
 
 ### 🌲 Print Abstract Syntax Tree (AST)
 
 ```bash
-python myrpal.py path/to/your/input.txt -ast
+python myrpal.py path/to/your/sample_test.txt -ast
 ```
 
 ### 🌳 Print Standardized AST (SAST)
 
 ```bash
-python myrpal.py path/to/your/input.txt -sast
+python myrpal.py path/to/your/sample_test.txt -sast
 ```
 
 > **Note:** On some systems, you may need to use `python3` instead of `python`.
@@ -131,4 +131,4 @@ If you face any issues or have questions, feel free to contact:
 * 📧 Pavan – [pavan.22@cse.mrt.ac.lk]
 * 📧 Janidu – [janidu.22@cse.mrt.ac.lk]
 
-For detailed execution steps, see [`Instructions_to_RUN.md`]
+For detailed execution steps, see [`Program RUN Guide.md`]
